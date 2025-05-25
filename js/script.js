@@ -35,3 +35,51 @@ document.addEventListener("DOMContentLoaded", () => {
     updateIcon();
   });
 });
+
+// fungsi btn scroll to top
+const scrollToTopBtn = document.getElementById("scrollToTop");
+
+window.addEventListener("scroll", () => {
+  // Tampilkan tombol saat scroll > 300px
+  if (window.scrollY > 300) {
+    scrollToTopBtn.classList.remove("hidden");
+  } else {
+    scrollToTopBtn.classList.add("hidden");
+  }
+});
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
+
+// fungsi validasi form nama, email, message
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); // mencegah form dikirim secara default
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!name) {
+    alert("Nama tidak boleh kosong.");
+    return;
+  }
+
+  if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+    alert("Masukkan email yang valid.");
+    return;
+  }
+
+  if (!message) {
+    alert("Pesan tidak boleh kosong.");
+    return;
+  }
+
+  // Semua valid
+  alert("Pesan berhasil dikirim! (simulasi)");
+  form.reset();
+});
