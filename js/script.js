@@ -83,3 +83,48 @@ form.addEventListener("submit", function (e) {
   alert("Pesan berhasil dikirim! (simulasi)");
   form.reset();
 });
+
+// Ambil daftar project dari JSON
+fetch("data/projects.json")
+  .then((res) => res.json())
+  .then((projects) => {
+    const container = document.getElementById("projectList");
+    container.innerHTML = projects
+      .map(
+        (project) => `
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition" data-aos="fade-up">
+          <!-- Kotak gambar dengan aspect-square -->
+          <div class="aspect-square w-full mb-4 overflow-hidden rounded-md">
+            <img
+              src="${project.image}"
+              alt="${project.title}"
+              class="w-full h-full object-cover transition hover:scale-105"
+            />
+          </div>
+          <h4 class="text-lg font-bold mb-1">${project.title}</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            ${project.description}
+          </p>
+          <!-- Tools -->
+          <div class="flex flex-wrap gap-2 mb-3">
+            ${project.tools
+              .map(
+                (tool) => `
+              <span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded">
+                ${tool}
+              </span>
+            `
+              )
+              .join("")}
+          </div>
+
+          <!-- Link -->
+          <a href="${project.link}" target="_blank" class="text-indigo-500 text-sm font-semibold hover:underline">
+            View Project →
+          </a>
+        </div>
+      `
+      )
+      .join("");
+    AOS.refresh(); // agar animasi muncul setelah inject
+  });

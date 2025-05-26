@@ -1,0 +1,23 @@
+[
+  {
+    "title": "To-Do App",
+    "description": "Aplikasi mencatat dan mengelola tugas harian.",
+    "image": "img/project1.png",
+    "tools": ["React", "JSON", "LocalStorage"],
+    "link": "https://www.instagram.com/alfan.bags/"
+  },
+  {
+    "title": "Landing Page Travel",
+    "description": "Desain dan implementasi landing page untuk travel agency.",
+    "image": "img/project1.png",
+    "tools": ["HTML", "Tailwind", "JavaScript"],
+    "link": "https://www.instagram.com/alfan.bags/"
+  },
+  {
+    "title": "Logo Design",
+    "description": "Desain dan implementasi logo untuk branding dan media sosial.",
+    "image": "img/project1.png",
+    "tools": ["HTML", "Tailwind", "JavaScript"],
+    "link": "https://www.instagram.com/alfan.bags/"
+  }
+]
