@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Inisialisasi AOS
   AOS.init({ duration: 800, once: true });
+
   // DARK MODE TOGGLE
   const toggle = document.getElementById("dark-toggle");
   const icon = document.getElementById("icon-toggle");
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", theme);
     updateIcon();
   });
+
   // SCROLL TO TOP BUTTON
   const scrollToTopBtn = document.getElementById("scrollToTop");
 
@@ -45,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // FORM VALIDATION
   const form = document.getElementById("contactForm");
 
-  form.addEventListener("submit", (e) => {
+  form?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -71,24 +73,24 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = filtered
           .map(
             (project) => `
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition" data-aos="fade-up">
-              <div class="aspect-square w-full mb-4 overflow-hidden rounded-md">
-                <img src="${project.image}" alt="${project.title}"
-                  class="w-full h-full object-cover transition hover:scale-105" />
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition" data-aos="fade-up">
+                <div class="aspect-square w-full mb-4 overflow-hidden rounded-md">
+                  <img src="${project.image}" alt="${project.title}"
+                    class="w-full h-full object-cover transition hover:scale-105" />
+                </div>
+                <h4 class="text-lg font-bold mb-1">${project.title}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                  ${project.description}
+                </p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  ${project.tools.map((tool) => `<span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded">${tool}</span>`).join("")}
+                </div>
+                <a href="${project.link}" target="_blank"
+                  class="text-indigo-500 text-sm font-semibold hover:underline">
+                  View Project →
+                </a>
               </div>
-              <h4 class="text-lg font-bold mb-1">${project.title}</h4>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                ${project.description}
-              </p>
-              <div class="flex flex-wrap gap-2 mb-3">
-                ${project.tools.map((tool) => `<span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded">${tool}</span>`).join("")}
-              </div>
-              <a href="${project.link}" target="_blank"
-                 class="text-indigo-500 text-sm font-semibold hover:underline">
-                View Project →
-              </a>
-            </div>
-          `
+            `
           )
           .join("");
 
@@ -106,11 +108,32 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.classList.remove("bg-blue-500", "text-white");
             btn.classList.add("bg-gray-200", "dark:bg-gray-700");
           });
+
           button.classList.add("bg-blue-500", "text-white");
           button.classList.remove("bg-gray-200", "dark:bg-gray-700");
 
           renderProjects(category);
         });
       });
+    })
+    .catch((err) => {
+      console.error("Gagal memuat project:", err);
     });
+
+  // HAMBURGER MENU TOGGLE
+  lucide.createIcons();
+
+  const menuToggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
+  const iconHamburger = document.getElementById("icon-hamburger");
+  const iconClose = document.getElementById("icon-close");
+
+  menuToggle.addEventListener("click", () => {
+    // Toggle menu
+    menu.classList.toggle("hidden");
+
+    // Toggle icon hamburger & close
+    iconHamburger.classList.toggle("hidden");
+    iconClose.classList.toggle("hidden");
+  });
 });

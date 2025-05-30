@@ -16,7 +16,7 @@
   </head>
   <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
     <!-- Header -->
-    <header class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <header class="relative max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <!-- Logo: Light & Dark -->
       <div class="flex items-center gap-3">
         <!-- Logo untuk mode terang -->
@@ -26,12 +26,32 @@
         <h1 class="text-xl font-bold">Alfan.</h1>
       </div>
 
-      <div class="flex items-center gap-6">
-        <nav class="hidden md:flex space-x-6">
-          <a href="#home" class="hover:text-indigo-500">Home</a>
-          <a href="#services" class="hover:text-indigo-500">Service</a>
-          <a href="#contact" class="hover:text-indigo-500">Contact</a>
+      <!-- Navbar + Dark Mode Toggle -->
+      <div class="flex items-center gap-4">
+        <!-- Navbar -->
+        <nav
+          id="menu"
+          class="hidden md:flex md:space-x-6 flex-col md:flex-row absolute md:static top-16 right-6 bg-white dark:bg-gray-800 md:bg-transparent dark:md:bg-transparent p-4 md:p-0 rounded-md md:rounded-none shadow md:shadow-none z-50 transition-all duration-300 ease-in-out"
+        >
+          <a href="#home" class="hover:text-indigo-500 block py-2 md:py-0">Home</a>
+          <a href="#services" class="hover:text-indigo-500 block py-2 md:py-0">Service</a>
+          <a href="#contact" class="hover:text-indigo-500 block py-2 md:py-0">Contact</a>
         </nav>
+
+        <!-- Hamburger Button -->
+        <button id="menu-toggle" class="md:hidden">
+          <!-- Hamburger Icon -->
+          <svg id="icon-hamburger" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+
+          <!-- Close Icon -->
+          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Dark Mode Toggle -->
         <button id="dark-toggle" class="text-gray-500 dark:text-white">
           <svg id="icon-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6"></svg>
         </button>
@@ -134,12 +154,12 @@
     <!-- My Project -->
     <section id="projects" class="max-w-6xl mx-auto px-6 pt-16 pb-24">
       <h3 class="text-2xl font-semibold text-center mb-10">Latest Projects</h3>
-      <!-- Filter Buttons -->
-      <div class="flex justify-center gap-4 mb-10">
-        <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded" data-category="All">All</button>
-        <button class="filter-btn bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded" data-category="ui">UI</button>
-        <button class="filter-btn bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded" data-category="web">Web</button>
-        <button class="filter-btn bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded" data-category="graphic-design">Graphic Design</button>
+      <!-- Filter Buttons (Responsive) -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10 px-4">
+        <button class="filter-btn bg-blue-500 text-white px-4 py-2 rounded text-sm" data-category="All">All</button>
+        <button class="filter-btn bg-gray-200 dark:bg-gray-700 text-sm px-4 py-2 rounded" data-category="ui">UI</button>
+        <button class="filter-btn bg-gray-200 dark:bg-gray-700 text-sm px-4 py-2 rounded" data-category="web">Web</button>
+        <button class="filter-btn bg-gray-200 dark:bg-gray-700 text-sm px-4 py-2 rounded" data-category="graphic-design">Graphic Design</button>
       </div>
       <div id="projectList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
@@ -160,8 +180,16 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
       </svg>
     </button>
+    <!-- Footer & Script -->
+
     <script>
       lucide.createIcons();
+
+      const menuToggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("menu");
+      menuToggle.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="js/script.js"></script>
