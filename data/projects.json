@@ -4,20 +4,31 @@
     "description": "Aplikasi mencatat dan mengelola tugas harian.",
     "image": "img/project1.png",
     "tools": ["React", "JSON", "LocalStorage"],
-    "link": "https://www.instagram.com/alfan.bags/"
+    "link": "https://www.instagram.com/alfan.bags/",
+    "category": "app"
   },
   {
     "title": "Landing Page Travel",
     "description": "Desain dan implementasi landing page untuk travel agency.",
     "image": "img/project1.png",
     "tools": ["HTML", "Tailwind", "JavaScript"],
-    "link": "https://www.instagram.com/alfan.bags/"
+    "link": "https://www.instagram.com/alfan.bags/",
+    "category": "web"
   },
   {
     "title": "Logo Design",
     "description": "Desain dan implementasi logo untuk branding dan media sosial.",
     "image": "img/project1.png",
     "tools": ["HTML", "Tailwind", "JavaScript"],
-    "link": "https://www.instagram.com/alfan.bags/"
+    "link": "https://www.instagram.com/alfan.bags/",
+    "category": "graphic-design"
+  },
+  {
+    "title": "Mobile App UI Kit",
+    "description": "Desain UI untuk aplikasi mobile menggunakan Figma.",
+    "image": "img/project1.png",
+    "tools": ["Figma"],
+    "link": "https://www.instagram.com/alfan.bags/",
+    "category": "ui"
   }
 ]
