@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   menuToggle.addEventListener("click", () => {
     // Toggle menu
-    menu.classList.toggle("hidden");
+    menu.classList.toggle("flex");
 
     // Toggle icon hamburger & close
     iconHamburger.classList.toggle("hidden");
