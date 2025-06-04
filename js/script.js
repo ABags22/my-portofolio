@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateIcon = () => {
     icon.innerHTML = html.classList.contains("dark")
       ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-           d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />` // Bulan
+           d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />`
       : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-           d="M12 3v1m0 16v1m8.66-12.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 4.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />`; // Matahari
+           d="M12 3v1m0 16v1m8.66-12.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.66 4.66l-.71-.71M4.05 4.05l-.71-.71M16 12a4 4 0 11-8 0 4 4 0 018 0z" />`;
   };
 
   // Terapkan preferensi awal
@@ -44,10 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // FORM VALIDATION
-  const form = document.getElementById("contactForm");
+  // FORM VALIDATION (CONTACT)
+  const contactForm = document.getElementById("contactForm");
 
-  form?.addEventListener("submit", (e) => {
+  contactForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!message) return alert("Pesan tidak boleh kosong.");
 
     alert("Pesan berhasil dikirim! (simulasi)");
-    form.reset();
+    contactForm.reset();
   });
 
   // LOAD & RENDER PROJECTS
@@ -136,4 +136,111 @@ document.addEventListener("DOMContentLoaded", () => {
     iconHamburger.classList.toggle("hidden");
     iconClose.classList.toggle("hidden");
   });
+
+  // TO-DO FORM + SIMPAN LOCALSTORAGE
+  const todoForm = document.getElementById("todo-form");
+  const todoInput = document.getElementById("todo-input");
+  const todoList = document.getElementById("todo-list");
+  const clearBtn = document.getElementById("clear-all");
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let currentFilter = "all";
+
+  const saveTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
+  const renderTodos = () => {
+    todoList.innerHTML = "";
+
+    let filteredTodos = todos;
+    if (currentFilter === "completed") {
+      filteredTodos = todos.filter((todo) => todo.completed);
+    } else if (currentFilter === "incomplete") {
+      filteredTodos = todos.filter((todo) => !todo.completed);
+    }
+
+    filteredTodos.forEach((todo, index) => {
+      const li = document.createElement("li");
+      li.className = "flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-3 rounded-lg mb-2";
+
+      li.innerHTML = `
+      <div class="flex items-center gap-2">
+        <input type="checkbox" class="accent-green-500 w-5 h-5" ${todo.completed ? "checked" : ""} />
+        <span class="todo-text text-gray-800 dark:text-white ${todo.completed ? "line-through opacity-60" : ""}">${todo.text}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="edit-btn text-blue-500 hover:underline text-sm">Edit</button>
+        <button class="delete-btn text-red-500 hover:text-red-700 text-xl font-bold">&times;</button>
+      </div>
+    `;
+
+      // Checkbox toggle
+      li.querySelector("input").addEventListener("change", () => {
+        todos[index].completed = !todos[index].completed;
+        saveTodos();
+        renderTodos();
+      });
+
+      // Delete button
+      li.querySelector(".delete-btn").addEventListener("click", () => {
+        todos.splice(index, 1);
+        saveTodos();
+        renderTodos();
+      });
+
+      // Edit button
+      li.querySelector(".edit-btn").addEventListener("click", () => {
+        const newText = prompt("Edit to-do:", todos[index].text);
+        if (newText !== null && newText.trim() !== "") {
+          todos[index].text = newText.trim();
+          saveTodos();
+          renderTodos();
+        }
+      });
+
+      todoList.appendChild(li);
+    });
+  };
+
+  todoForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = todoInput.value.trim();
+    if (text !== "") {
+      todos.push({ text, completed: false });
+      saveTodos();
+      renderTodos();
+      todoInput.value = "";
+    }
+  });
+
+  // Filter buttons
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      currentFilter = btn.getAttribute("data-filter");
+
+      filterBtns.forEach((b) => {
+        b.classList.remove("bg-blue-500", "text-white");
+        b.classList.add("bg-gray-200", "dark:bg-gray-700");
+      });
+
+      btn.classList.add("bg-blue-500", "text-white");
+      btn.classList.remove("bg-gray-200", "dark:bg-gray-700");
+
+      renderTodos();
+    });
+  });
+
+  // Clear all button
+  clearBtn?.addEventListener("click", () => {
+    if (confirm("Yakin ingin menghapus semua to-do?")) {
+      todos = [];
+      saveTodos();
+      renderTodos();
+    }
+  });
+
+  // Inisialisasi awal
+  renderTodos(); // Load saat halaman dibuka
 });
