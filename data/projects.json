@@ -2,9 +2,9 @@
   {
     "title": "To-Do App",
     "description": "Aplikasi mencatat dan mengelola tugas harian.",
-    "image": "img/project1.png",
-    "tools": ["React", "JSON", "LocalStorage"],
-    "link": "https://www.instagram.com/alfan.bags/",
+    "image": "img/project5.png",
+    "tools": ["HTML", "Tailwind", "JavaScript", "JSON", "LocalStorage"],
+    "link": "https://abags22.github.io/to-do-app/",
     "category": "app"
   },
   {

@@ -73,26 +73,35 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = filtered
           .map(
             (project) => `
-              <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition" data-aos="fade-up">
-                <div class="aspect-square w-full mb-4 overflow-hidden rounded-md">
-                  <img src="${project.image}" alt="${project.title}"
-                    class="w-full h-full object-cover transition hover:scale-105" />
-                </div>
-                <h4 class="text-lg font-bold mb-1">${project.title}</h4>
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                  ${project.description}
-                </p>
-                <div class="flex flex-wrap gap-2 mb-3">
-                  ${project.tools.map((tool) => `<span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded">${tool}</span>`).join("")}
-                </div>
-                <a href="${project.link}" target="_blank"
-                  class="text-indigo-500 text-sm font-semibold hover:underline">
-                  View Project →
-                </a>
-              </div>
-            `
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition" data-aos="fade-up">
+          <div class="aspect-square w-full mb-4 overflow-hidden rounded-md">
+            <img src="${project.image}" alt="${project.title}"
+            class="w-full h-full object-cover transition hover:scale-105 project-img" />
+
+          </div>
+          <h4 class="text-lg font-bold mb-1">${project.title}</h4>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            ${project.description}
+          </p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            ${project.tools.map((tool) => `<span class="text-sm bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-2 py-1 rounded">${tool}</span>`).join("")}
+          </div>
+          <a href="${project.link}" target="_blank"
+            class="text-indigo-500 text-sm font-semibold hover:underline">
+            View Project →
+          </a>
+        </div>
+      `
           )
           .join("");
+        // Ganti gambar yang gagal dimuat dengan SVG fallback
+        container.querySelectorAll(".project-img").forEach((img) => {
+          img.addEventListener("error", () => {
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = fallbackIcon;
+            img.replaceWith(wrapper.firstElementChild);
+          });
+        });
 
         AOS.refresh();
       };
@@ -136,4 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
     iconHamburger.classList.toggle("hidden");
     iconClose.classList.toggle("hidden");
   });
+  // Projek image change icon svg
+  const fallbackIcon = `
+    <svg class="w-full h-48 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3V3zm3 14l4-4 3 3 5-5" />
+    </svg>
+  `;
 });
